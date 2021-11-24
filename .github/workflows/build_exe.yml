@@ -22,13 +22,13 @@ jobs:
           git switch -c dist
       - name: "Build executable"
         run: |
-          for i in $(ls ./*.go); do
-            basename=$(basename $i .go)
+          for i in $(ls ./**/*.go); do
+            basename="${i%.*}"
             go build -o $basename.exe $i
           done
       - name: "Delete go files"
         run: |
-          rm -rf ./*.go
+          rm -rf ./**/*.go
       - name: "Change readme"
         run: |
           cat - <<EOF > README.md
