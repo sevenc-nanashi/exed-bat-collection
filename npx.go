@@ -1,4 +1,5 @@
 // +build ignore
+// .../nodejs/npx.exe
 
 package main
 
@@ -48,4 +49,5 @@ func main() {
 	main_cmd.Stdout = os.Stdout
 	main_cmd.Stderr = os.Stderr
 	main_cmd.Run()
+	os.Exit(main_cmd.ProcessState.ExitCode())
 }
