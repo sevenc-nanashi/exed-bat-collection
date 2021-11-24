@@ -1,0 +1,44 @@
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "*.go"
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v2
+        with:
+          branch: main
+      - name: "Setup go"
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.14.4
+      - name: "Switch branch"
+        run: |
+          git branch -D dist
+          git swicth dist
+      - name: "Build executable"
+        run: |
+          for i in $(ls ./*.go); do
+            go build -o $i.exe $i
+          done
+      - name: "Delete go files"
+        run: |
+          rm -rf ./*.go
+      - name: "Change readme"
+        run: |
+          cat - <<EOF > README.md
+          # Exe'd bat collection: dist
+
+          Feel free to download and use this exe collection.
+          EOF
+      - name: "Upload to GitHub"
+        run: |
+          git config --global user.name "GitHub Action"
+          git config --global user.email "actions@github.com"
+          git add .
+          git commit -m "Build"
+          git push origin dist
