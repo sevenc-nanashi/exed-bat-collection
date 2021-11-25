@@ -1,5 +1,5 @@
 // +build ignore
-// .../nodejs/npm.exe
+// path: .../nodejs/npm.exe
 
 package main
 

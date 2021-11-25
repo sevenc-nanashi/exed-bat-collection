@@ -1,5 +1,5 @@
 // +build ignore
-// .../nodejs/npx.exe
+// path: .../nodejs/npx.exe
 
 package main
 

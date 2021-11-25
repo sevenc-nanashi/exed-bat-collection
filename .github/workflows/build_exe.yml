@@ -26,9 +26,6 @@ jobs:
             basename="${i%.*}"
             go build -o $basename.exe $i
           done
-      - name: "Delete go files"
-        run: |
-          rm -rf ./**/*.go
       - name: "Change readme"
         run: |
           cat - <<EOF > README.md
@@ -36,11 +33,24 @@ jobs:
 
           Feel free to download and use this exe collection.
           These executables are licensed under the WTFPL.
+
+          ## Paths
+          | Executable | Path |
+          | ---------- | ---- |
           EOF
+      - name: "Add paths"
+        run: |
+          for i in $(ls ./**/*.exe); do
+            go_content=$(cat "${i%.*}.go")
+            path_line=$(sed -n "2p" <<< "$go_content")
+            exe_path="${path_line#*path: }"
+            echo "| $i | $exe_path |" >> README.md
+          done
       - name: "Delete not needed files"
         run: |
           rm -rf ./.github
           rm -rf ./.gitignore
+          rm -rf ./**/*.go
       - name: "Upload to GitHub"
         run: |
           git config --global user.name "GitHub Action"
