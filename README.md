@@ -1,10 +1,13 @@
-# Exe'd bat collection
+# Exe'd bat collection: dist
 
-This is a collection of exe files that is based on the bat files.
-With these executable, you can get rid of `Terminate Batch Job?` prompt!
+Feel free to download and use this exe collection.
+These executables are licensed under the WTFPL.
 
-Executables are in `dist` branch.
-
-## License
-
-These go files and executable files are licensed under the WTFPL. See the LICENSE file for more information.
+## Paths
+| Executable | Path |
+| ---------- | ---- |
+| ./heroku/heroku-localappdata.exe | %LOCALAPPDATA%/heroku/client/bin/heroku.exe |
+| ./heroku/heroku-version.exe | %LOCALAPPDATA%/heroku/client/(version)/heroku.exe |
+| ./heroku/heroku.exe | .../heroku/bin/heroku.exe |
+| ./npm/npm.exe | .../nodejs/npm.exe |
+| ./npm/npx.exe | .../nodejs/npx.exe |
