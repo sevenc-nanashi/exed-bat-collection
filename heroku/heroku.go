@@ -32,11 +32,7 @@ func main() {
 		args = append([]string{dp0 + "../client/bin/run"}, os.Args[1:]...)
 	}
 	trap := make(chan os.Signal, 1)
-	signal.Notify(trap, syscall.SIGTERM, syscall.SIGHUP, syscall.SIGINT)
-	go func() {
-		<-trap
-		// Do nothing
-	}()
+	signal.Ignore(syscall.SIGTERM, syscall.SIGHUP, syscall.SIGINT)
 	main_cmd := exec.Command(app, args...)
 	main_cmd.Stdin = os.Stdin
 	main_cmd.Stdout = os.Stdout

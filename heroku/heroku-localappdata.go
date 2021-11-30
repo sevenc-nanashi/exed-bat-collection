@@ -22,12 +22,7 @@ func main() {
 	executable, _ := os.Executable()
 	executable = strings.Replace(executable, "\\", "/", -1)
 	dp0 := path.Dir(executable)
-	trap := make(chan os.Signal, 1)
-	signal.Notify(trap, syscall.SIGTERM, syscall.SIGHUP, syscall.SIGINT)
-	go func() {
-		<-trap
-		// Do nothing
-	}()
+	signal.Ignore(syscall.SIGTERM, syscall.SIGHUP, syscall.SIGINT)
 	os.Setenv("HEROKU_REDIRECTED", "1")
 	os.Setenv("HEROKU_BINPATH", dp0+"/heroku")
 	cmd_content_bytes, _ := ioutil.ReadFile(dp0 + "/heroku.cmd")

@@ -31,12 +31,7 @@ func main() {
 	executable, _ := os.Executable()
 	executable = strings.Replace(executable, "\\", "/", -1)
 	dp0 := path.Dir(executable)
-	trap := make(chan os.Signal, 1)
-	signal.Notify(trap, syscall.SIGTERM, syscall.SIGHUP, syscall.SIGINT)
-	go func() {
-		<-trap
-		// Do nothing
-	}()
+	signal.Ignore(syscall.SIGTERM, syscall.SIGHUP, syscall.SIGINT)
 	_, env_exists := os.LookupEnv("HEROKU_REDIRECTED")
 	if (!env_exists) && Exists(os.Getenv("LOCALAPPDATA")+"/heroku/client/bin/heroku.cmd") {
 		os.Setenv("HEROKU_REDIRECTED", "1")
